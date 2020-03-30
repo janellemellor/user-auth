@@ -32,5 +32,19 @@ describe('app routes', () => {
       });
   });
 
+  it('logs a user in', async() => {
+    await User.create({ username: 'fox', password: 'ilovecookies' });
+
+    return request(app)
+      .post('/api/v1/auth/login')
+      .send({ username: 'fox', password: 'ilovecookies' })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          username: 'fox',
+          __v: 0
+        });
+      });
+  });
 
 });
