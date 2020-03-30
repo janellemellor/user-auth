@@ -47,4 +47,18 @@ describe('app routes', () => {
       });
   });
 
+  it('throws an error for an unathorized user', async() => {
+    await User.create({ username: 'fox', password: 'ilovecookies' });
+
+    return request(app)
+      .post('/api/v1/auth/login')
+      .send({ username: 'fox', password: 'cookiesaregross' })
+      .then(res => {
+        expect(res.body).toEqual({
+          message: 'Invalid username or password', 
+          status: 403
+        });
+      });
+  });
+
 });
