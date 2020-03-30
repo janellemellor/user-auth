@@ -21,7 +21,7 @@ describe('app routes', () => {
 
   it('signs up a user', () => {
     return request(app)
-      .post('api/v1/auth/signup')
+      .post('/api/v1/auth/signup')
       .send({ username: 'fox', password: 'ilovecookies' })
       .then(res => {
         expect(res.body).toEqual({
